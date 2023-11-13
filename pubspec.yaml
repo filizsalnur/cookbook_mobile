@@ -9,6 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  carousel_slider: ^4.2.1
 
 dev_dependencies:
   flutter_test:
@@ -16,4 +17,11 @@ dev_dependencies:
   flutter_lints: ^2.0.0
 
 flutter:
+  # Asset eklemek için assets anahtarını kullanabilirsiniz.
+  assets:
+    - assets/images/food_2.png
+    - assets/images/food_1.png
+    - assets/images/profile_1.png
+    - assets/images/profile_2.png
+
   uses-material-design: true

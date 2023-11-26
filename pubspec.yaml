@@ -25,5 +25,11 @@ flutter:
     - assets/images/food_1.png
     - assets/images/profile_1.png
     - assets/images/profile_2.png
+    - assets/images/rounded_1.png
+    - assets/images/rounded_2.png
+    - assets/images/rounded_3.png
+    - assets/images/rounded_4.png
+    - assets/images/rounded_5.png
+    - assets/images/rounded_6.png
 
   uses-material-design: true

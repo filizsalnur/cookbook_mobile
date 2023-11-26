@@ -1,4 +1,4 @@
-import 'package:cookbook_mobile/pages/home.dart';
+import 'package:cookbook_mobile/pages/welcome.dart';
 import 'package:cookbook_mobile/pages/login.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +13,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
  return MaterialApp(
       title: 'Flutter Demo',
-      home: LoginPage(),
+      home: WelcomePage(),
       debugShowCheckedModeBanner: false,
     );
   }

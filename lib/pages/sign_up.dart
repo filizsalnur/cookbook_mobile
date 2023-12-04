@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, use_build_context_synchronously
 
+import 'package:cookbook_mobile/pages/login.dart';
 import 'package:flutter/material.dart';
 import 'home.dart';
 
@@ -255,7 +256,7 @@ void checkForLength(String newPassword) {
               children: [
                 TextButton(
                   child: Text(
-                    "Don't have an account?",
+                    "Already have an account?",
                     style: TextStyle(
                       color: Colors.grey.shade700,
                       height: 0.1,
@@ -268,7 +269,7 @@ void checkForLength(String newPassword) {
                 ),
                 TextButton(
                   child: Text(
-                    'Sign up',
+                    'Sign in',
                     style: TextStyle(
                       color: Colors.green,
                       height: 0.1,
@@ -277,7 +278,7 @@ void checkForLength(String newPassword) {
                   ),
                   onPressed: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => SignUpPage()));
+                        MaterialPageRoute(builder: (context) => LoginPage()));
                   },
                 ),
               ],

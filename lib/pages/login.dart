@@ -1,8 +1,10 @@
 // ignore_for_file: prefer_const_constructors, use_build_context_synchronously, prefer_const_literals_to_create_immutables, deprecated_member_use
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'sign_up.dart';
-
+import '../services/endpoint_services.dart';
 import 'home.dart';
 
 class LoginPage extends StatefulWidget {
@@ -19,14 +21,11 @@ class LoginPageState extends State<LoginPage> {
   String errorEmailMessage = '';
   String errorPasswordMessage = '';
   bool checkedValue = false;
-
+  bool isEmailValid = true;
+  bool isPasswordValid = true;
 
   @override
-  void initState() {
-
-  }
-
-
+  void initState() {}
 
   void resetLoginPage() {
     setState(() {
@@ -97,9 +96,9 @@ class LoginPageState extends State<LoginPage> {
                     SizedBox(
                       height: 5.0,
                     ),
-                    if (errorEmailMessage != '')
+                    if (!isEmailValid)
                       Text(
-                        errorEmailMessage,
+                        "Email is incorrect",
                         style: TextStyle(
                           color: Colors.red,
                           fontSize: 18,
@@ -141,9 +140,9 @@ class LoginPageState extends State<LoginPage> {
                 ),
               ),
             ),
-            if (errorPasswordMessage != '')
+            if (!isPasswordValid)
               Text(
-                errorPasswordMessage,
+                "Password is incorrect",
                 style: TextStyle(
                   color: Colors.red,
                   fontSize: 18,
@@ -189,7 +188,8 @@ class LoginPageState extends State<LoginPage> {
                       MaterialStateProperty.all<Color>(Colors.green),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 120, right: 120, top: 20, bottom: 20),
+                  padding: const EdgeInsets.only(
+                      left: 120, right: 120, top: 20, bottom: 20),
                   child: const Text(
                     'Login',
                     style: TextStyle(
@@ -202,13 +202,37 @@ class LoginPageState extends State<LoginPage> {
                 onPressed: () async {
                   String mail = mailController.text;
                   String password = passwordController.text;
-                  Navigator.pushReplacement(
+
+                  ApiResponse response = await EndpointServices().getUserList();
+                  List<dynamic> userList = jsonDecode(response.body);
+
+                  for (var user in userList) {
+                    String email = user['email'];
+                   
+                    if (email == mail) {
+                      setState(() {
+                        isEmailValid = true;
+                      });
+                      if (user['password'] == password) {
+                        setState(() {
+                          isPasswordValid = true;
+                          
+                        });
+
+                        Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => HomePage()),
-                  );
-                  print(
-                      "//////////////////////////////////////////////////////////////////////////");
-                  print('mail: $mail');
+                    MaterialPageRoute(builder: (context) => HomePage()));
+                      } else {
+                        print("password is incorrect");
+                         setState(() {
+                          isPasswordValid = false;
+                       
+                        });
+                      }
+                    } 
+                  }
+                  
+                 
                
                 },
               ),
@@ -231,7 +255,7 @@ class LoginPageState extends State<LoginPage> {
                       height: 0.1,
                     ),
                   ),
-                  onPressed: () {
+                  onPressed: () async {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => SignUpPage()));
                   },

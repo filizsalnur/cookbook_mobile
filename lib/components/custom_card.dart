@@ -1,6 +1,9 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:cookbook_mobile/pages/recipe_details.dart';
 import 'package:flutter/material.dart';
+
+import '../pages/home.dart';
 
 class CustomCard extends StatelessWidget {
   final String profileImg;
@@ -28,7 +31,9 @@ class CustomCard extends StatelessWidget {
         shadowColor: Colors.blueGrey,
         child: InkWell(
           splashColor: Colors.grey.withAlpha(90),
-          onTap: () {},
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => RecipeDetailsPage(recipeID:navigatorName))); 
+          },
           child: Container(
             height: 220,
             width: customWidth == 'full'

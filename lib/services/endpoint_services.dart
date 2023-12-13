@@ -2,7 +2,6 @@
 
 import 'dart:convert';
 
-
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -14,7 +13,7 @@ class ApiResponse {
 }
 
 class EndpointServices {
-   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   String baseUrl = 'http://localhost:5003/';
   Future<void> setBaseUrl(String newBaseUrl) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -24,25 +23,100 @@ class EndpointServices {
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   Future<ApiResponse> getUserList() async {
 
-      print('======================Get User List=====================');
-    
-      final url = baseUrl + 'api/User';
 
-      print('======================Get User List=====================');
-      try {
-        final response = await http.get(Uri.parse(url));
+    final url = baseUrl + 'api/User';
 
-        if (response.statusCode >= 399) {
-          print('ERROR: ${response.body}');
-          return ApiResponse(response.statusCode, response.body);
-        } else {
-          print('OK');
-          return ApiResponse(response.statusCode, response.body);
-        }
-      } catch (e) {
-        print("Error in db_services: $e");
-        return ApiResponse(500, "Error: $e");
+    print('======================Get User List=====================');
+    try {
+      final response = await http.get(Uri.parse(url));
+
+      if (response.statusCode >= 399) {
+        print('ERROR: ${response.body}');
+        return ApiResponse(response.statusCode, response.body);
+      } else {
+        print('OK');
+        return ApiResponse(response.statusCode, response.body);
       }
+    } catch (e) {
+      print("Error in db_services: $e");
+      return ApiResponse(500, "Error: $e");
+    }
+  }
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Future<ApiResponse> createUser(String email, String password) async {
+
+
+    final url = baseUrl + 'api/User';
+
+    print('======================Create User=====================');
+    try {
+      final Map<String, dynamic> requestData = {
+        '"UserName"': '"$email"',
+        '"Email"': '"$email"',
+        '"Password"': '"$password"',
+        '"Recipes"': []
+      };
+      print(requestData);
+      final response =
+          await http.post(Uri.parse(url),  headers: <String, String>{
+        'Content-Type': 'application/json',
+      }, body: jsonEncode(requestData));
+
+      if (response.statusCode >= 399) {
+        print('ERROR: ${response.body}');
+        return ApiResponse(response.statusCode, response.body);
+      } else {
+        print('OK');
+        return ApiResponse(response.statusCode, response.body);
+      }
+    } catch (e) {
+      print("Error in db_services: $e");
+      return ApiResponse(500, "Error: $e");
+    }
+  }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    Future<ApiResponse> getRecipeList() async {
+
+
+    final url = baseUrl + 'api/Recipe';
+
+    print('======================Get Recipe List=====================');
+    try {
+      final response = await http.get(Uri.parse(url));
+
+      if (response.statusCode >= 399) {
+        print('ERROR: ${response.body}');
+        return ApiResponse(response.statusCode, response.body);
+      } else {
+        print('OK');
+        return ApiResponse(response.statusCode, response.body);
+      }
+    } catch (e) {
+      print("Error in db_services: $e");
+      return ApiResponse(500, "Error: $e");
+    }
   }
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    Future<ApiResponse> getOneRecipe(String recipeID) async {
+
+
+    final url = baseUrl + 'api/Recipe/$recipeID';
+
+    print('======================Get Recipe =====================');
+    try {
+      final response = await http.get(Uri.parse(url));
+
+      if (response.statusCode >= 399) {
+        print('ERROR: ${response.body}');
+        return ApiResponse(response.statusCode, response.body);
+      } else {
+        print('OK');
+        return ApiResponse(response.statusCode, response.body);
+      }
+    } catch (e) {
+      print("Error in db_services: $e");
+      return ApiResponse(500, "Error: $e");
+    }
+  }
 }

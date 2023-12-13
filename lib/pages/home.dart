@@ -1,5 +1,8 @@
 // ignore_for_file: prefer_const_constructors, use_build_context_synchronously, prefer_const_literals_to_create_immutables, deprecated_member_use, sort_child_properties_last
 
+import 'dart:convert';
+
+import 'package:cookbook_mobile/services/endpoint_services.dart';
 import 'package:flutter/material.dart';
 import '../components/bottom_navigation.dart';
 
@@ -15,9 +18,20 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<dynamic> recipeList = [];
+
+
   @override
   void initState() {
     super.initState();
+    _getRecipeList();
+  }
+  void _getRecipeList() async {
+    final response = await EndpointServices().getRecipeList();
+    setState(() {
+      recipeList = jsonDecode(response.body);
+    });
+    print(recipeList.toString());
   }
 
   @override
@@ -34,62 +48,27 @@ class _HomePageState extends State<HomePage> {
         body: SingleChildScrollView(
           child: SafeArea(
      
-              child: Column(
+              child:Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SearchBarApp(),
-                  
-                  SizedBox(height: 20),
-                 
-         
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
-                    child: Row(
-                      children: [
-                        CustomCard(
-                            
-                            title: "Salad",
-                            imgRoute: "assets/images/food_1.png",
-                            customWidth: 'half',navigatorName: "",
-                            profileName: "John Doe",
-                            profileImg: 'assets/images/profile_1.png',),
-                        CustomCard(
-                        
-                            title: "Pancake",
-                            imgRoute: "assets/images/food_2.png",
-                            customWidth: 'half',navigatorName: "",
-                             profileName: "Calum Lewis",
-                            profileImg: 'assets/images/profile_2.png',),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 20),
-                  CarouselSlider(
-                    options: CarouselOptions(
-                      autoPlay: true,
-                      aspectRatio: 1.7,
-                      enlargeCenterPage: false,
-                  
-                    ),
-                    items: [
-                      CustomCard(
-                          
-                          title: "Salad",
-                          imgRoute: "assets/images/food_1.png",
-                          customWidth: 'half',navigatorName: "",
-                          profileName: "John Doe",
-                          profileImg: 'assets/images/profile_1.png',),
-                      CustomCard(
-                      
-                          title: "Pancake",
-                          imgRoute: "assets/images/food_2.png",
-                          customWidth: 'half',navigatorName: "",
-                           profileName: "Calum Lewis",
-                          profileImg: 'assets/images/profile_2.png',),
-                    ],
-                  ),
-                ],
-              ),
+  children: recipeList.map((recipe) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: CustomCard(
+            title: recipe['title'],
+            imgRoute: "assets/images/food_1.png", // Özel resminizi ekleyin
+            customWidth: 'full', // Özel genişliği belirtin
+            navigatorName: recipe['id'],
+            profileName: recipe['userName'],
+            profileImg: 'assets/images/profile_1.png', // Özel resminizi ekleyin
+          ),
+        ),
+      ],
+    );
+  }).toList(),
+),
            
           ),
         ),

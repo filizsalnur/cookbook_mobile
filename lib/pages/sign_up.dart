@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, use_build_context_synchronously
 
 import 'package:cookbook_mobile/pages/login.dart';
+import 'package:cookbook_mobile/services/endpoint_services.dart';
 import 'package:flutter/material.dart';
 import 'home.dart';
 
@@ -233,15 +234,20 @@ void checkForLength(String newPassword) {
                 onPressed: () async {
                   String mail = emailController.text;
                   String password = passwordController.text;
-                  Navigator.pushReplacement(
+                 
+                  checkForNumber(password);
+                 if(password.length > 6 && containsNumber){
+                  ApiResponse responce=await EndpointServices().createUser(mail, password);
+                  print(responce.statusCode);
+                  if(responce.statusCode< 400){
+                    Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(builder: (context) => HomePage()),
                   );
-                  print(
-                      "//////////////////////////////////////////////////////////////////////////");
-                  print('mail: $mail');
+                 }
+               
             
-                },
+                }},
               ),
             ),
           ])),

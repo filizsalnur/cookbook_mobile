@@ -1,5 +1,6 @@
 
 
+import 'package:cookbook_mobile/pages/profile.dart';
 import 'package:flutter/material.dart';
 
 import '../pages/home.dart';
@@ -66,7 +67,8 @@ class BottomAppBarWidgetState extends State<BottomAppBarWidget> {
               color: Colors.grey,
               iconSize: 40,
               onPressed: () {
-               
+              Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ProfilePage()));
               },
             ),
           ],

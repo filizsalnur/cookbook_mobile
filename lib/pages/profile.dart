@@ -44,101 +44,10 @@ class _ProfilePageState extends State<ProfilePage> {
             children: [
               SizedBox(height: 20),
        
-              SizedBox(height: 20),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: TextButton(
-                  onPressed: () {},
-                  style: TextButton.styleFrom(
-                       backgroundColor:Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18.0),
-                      side: BorderSide(color:Colors.green,width: 3)
-                    ),
-                    fixedSize: Size.fromHeight(60),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Icon(
-                            Icons.dark_mode,
-                            color: Colors.black,
-                          ),
-                          SizedBox(width: 10),
-                          Text(
-                            'Dark Mode',
-                            style: TextStyle(
-                              fontSize: 20.0,
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Switch(
-                        value: isLightModeSelected,
-                        activeColor: Colors.blue.shade100,
-                        onChanged: (bool value) {
-                    
-                          setState(() {
-                            isLightModeSelected = value;
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+  
+          
               
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: TextButton(
-                  onPressed: () {},
-                  style: TextButton.styleFrom(
-                    backgroundColor:Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18.0),
-                      side: BorderSide(color:Colors.green,width: 3)
-                    ),
-                    fixedSize: Size.fromHeight(60),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Icon(
-                            Icons.lock,
-                            color: Colors.black,
-                          ),
-                          SizedBox(width: 10),
-                          Text(
-                            'Change Password',
-                            style: TextStyle(
-                              fontSize: 20.0,
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                      IconButton(
-                        onPressed: () {
-                         
-                        },
-                        icon: Icon(
-                          Icons.arrow_forward_ios,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+             
                     SizedBox(height: 20),
                  Center(
                 child: CircleAvatar(

@@ -129,7 +129,7 @@ class EndpointServices {
     }
   }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  Future<int> createRecipe(String title, String description) async {
+  Future<int> createRecipe(String title, String description,String mealType) async {
     String userName = await getMail();
     String userId = await getUserId();
 
@@ -138,10 +138,11 @@ class EndpointServices {
     print('======================Create User=====================');
     try {
       final Map<String, dynamic> requestData = {
-        'Title': '$title',
-        'Description': '$description',
-        'UserName': '$userName',
-        'UserId': '$userId'
+        'Title': title,
+        'Description': description,
+        'UserName': userName,
+        'UserId': userId,
+        'MealType': mealType
       };
       print(jsonEncode(requestData));
       final response =

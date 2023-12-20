@@ -1,5 +1,6 @@
 
 
+import 'package:cookbook_mobile/pages/addRecipe.dart';
 import 'package:cookbook_mobile/pages/profile.dart';
 import 'package:flutter/material.dart';
 
@@ -35,33 +36,20 @@ class BottomAppBarWidgetState extends State<BottomAppBarWidget> {
                     MaterialPageRoute(builder: (context) => HomePage()));
               },
             ),
-            IconButton(
-              icon: Icon(Icons.upload_file),
-              color: Colors.grey,
-              iconSize: 40,
-              onPressed: ()  {
-         
-              },
-            ),
+           
            
            FloatingActionButton(
-            onPressed: (){
-
-           }, 
+              onPressed: ()  {
+          Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => AddRecipePage() ));
+              },
            child: Icon(Icons.document_scanner),
            backgroundColor: Colors.green.shade500,
            tooltip: "Scan",
            ),
 
         
-            IconButton(
-              icon: Icon(Icons.notifications),
-              color: Colors.grey,
-              iconSize: 40,
-              onPressed: () {
-                print('pressed');
-              },
-            ),
+          
             IconButton(
               icon: Icon(Icons.person),
               color: Colors.grey,

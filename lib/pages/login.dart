@@ -218,7 +218,9 @@ class LoginPageState extends State<LoginPage> {
                           isPasswordValid = true;
                           
                         });
-
+                        await EndpointServices().saveCredentials(
+                            mail, user['id'].toString());
+                     
                         Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(builder: (context) => HomePage()));

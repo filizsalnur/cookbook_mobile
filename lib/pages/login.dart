@@ -151,7 +151,7 @@ class LoginPageState extends State<LoginPage> {
             Padding(
               padding: const EdgeInsets.only(right: 20, top: 10),
               child: Align(
-                alignment: Alignment.centerRight,
+                alignment: Alignment.center,
                 child: SizedBox(
                   height: 35.0,
                   child: TextButton(
@@ -208,7 +208,7 @@ class LoginPageState extends State<LoginPage> {
 
                   for (var user in userList) {
                     String email = user['email'];
-                   
+
                     if (email == mail) {
                       setState(() {
                         isEmailValid = true;
@@ -216,26 +216,22 @@ class LoginPageState extends State<LoginPage> {
                       if (user['password'] == password) {
                         setState(() {
                           isPasswordValid = true;
-                          
                         });
-                        await EndpointServices().saveCredentials(
-                            mail, user['id'].toString());
-                     
+                        await EndpointServices()
+                            .saveCredentials(mail, user['id'].toString());
+
                         Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => HomePage()));
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HomePage()));
                       } else {
                         print("password is incorrect");
-                         setState(() {
+                        setState(() {
                           isPasswordValid = false;
-                       
                         });
                       }
-                    } 
+                    }
                   }
-                  
-                 
-               
                 },
               ),
             ),

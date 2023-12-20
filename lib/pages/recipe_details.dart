@@ -8,25 +8,34 @@ class RecipeDetailsPage extends StatefulWidget {
   RecipeDetailsPage({required this.recipeID});
 
   @override
-  _RecipeDetailsPageState createState() => _RecipeDetailsPageState();
+  RecipeDetailsPageState createState() => RecipeDetailsPageState();
 }
 
-class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
+class RecipeDetailsPageState extends State<RecipeDetailsPage> {
   Map<String, dynamic> recipe = {};
 
   @override
   void initState() {
     super.initState();
-    _getOneRecipe();
+    _fetchRecipeDetails();
   }
 
-  void _getOneRecipe() async {
-    final response = await EndpointServices().getOneRecipe(widget.recipeID);
-    print(response.body);
+  void _fetchRecipeDetails() {
+    _getOneRecipe().then((response) {
+      if (response.statusCode >= 399) {
+        print('ERROR: ${response.body}');
+        return;
+      }
+      print(response.body);
 
-    setState(() {
-      recipe = jsonDecode(response.body.toString());
+      setState(() {
+        recipe = jsonDecode(response.body.toString());
+      });
     });
+  }
+
+  Future<dynamic> _getOneRecipe() {
+    return EndpointServices().getOneRecipe(widget.recipeID);
   }
 
   @override
@@ -50,7 +59,6 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
               ),
               Image(
                 image: AssetImage("assets/images/food_2.png"),
-             
               ),
               SizedBox(
                 height: 25,

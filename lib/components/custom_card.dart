@@ -32,7 +32,11 @@ class CustomCard extends StatelessWidget {
         child: InkWell(
           splashColor: Colors.grey.withAlpha(90),
           onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => RecipeDetailsPage(recipeID:navigatorName))); 
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        RecipeDetailsPage(recipeID: navigatorName)));
           },
           child: Container(
             height: 220,
@@ -51,8 +55,7 @@ class CustomCard extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           CircleAvatar(
-                            backgroundImage:
-                                AssetImage(profileImg),
+                            backgroundImage: AssetImage(profileImg),
                             radius: 20,
                           ),
                           SizedBox(width: 10),
@@ -91,17 +94,14 @@ class CustomCard extends StatelessWidget {
                         ],
                       ),
                       SizedBox(height: 10),
-                   Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                     children: [
-                       Text(title,
-                                style: TextStyle(
-                                    fontSize: 25,
-                                  
-                                    color: Colors.black)),
-                     ],
-                   ),
-                   
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(title,
+                              style:
+                                  TextStyle(fontSize: 25, color: Colors.black)),
+                        ],
+                      ),
                     ],
                   ),
                 ),

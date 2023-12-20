@@ -171,6 +171,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           color: Colors.red,
                           fontSize: 20.0,
                         )),
+                        
                   ],
                 ),
               )

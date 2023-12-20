@@ -16,6 +16,7 @@ class _HomePageState extends State<HomePage> {
   List<dynamic> recipeList = [];
   late Future<void> _recipeListFuture;
 
+
   Future<void> _getRecipeList() async {
     final response = await EndpointServices().getRecipeList();
     setState(() {
@@ -29,6 +30,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     _recipeListFuture = _getRecipeList();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +67,7 @@ class _HomePageState extends State<HomePage> {
                             padding: const EdgeInsets.all(8.0),
                             child: CustomCard(
                               title: recipe['title'],
-                              imgRoute: "assets/images/food_1.png",
+                              mealType: recipe['mealType'],
                               customWidth: 'full',
                               navigatorName: recipe['id'],
                               profileName: recipe['userName'],

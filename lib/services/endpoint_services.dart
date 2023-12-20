@@ -22,7 +22,7 @@ class Credentials {
 
 class EndpointServices {
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  String baseUrl = 'http://192.168.1.116:5003/';
+  String baseUrl = 'http://localhost:5003/';
   Future<void> setBaseUrl(String newBaseUrl) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('baseUrl', newBaseUrl);

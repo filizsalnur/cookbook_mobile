@@ -5,23 +5,43 @@ import 'package:flutter/material.dart';
 
 import '../pages/home.dart';
 
+  List<String> mealTypes = [
+    'Pasta',
+    'Salad',
+    'Dessert',
+    'Soup',
+    'Kebab - Skewer',
+    'Pizza',
+    'Seafood',
+    'Vegetable Dishes',
+    'Fast Food',
+  ];
+
 class CustomCard extends StatelessWidget {
   final String profileImg;
   final String title;
-  final String imgRoute;
+  final String mealType;
   final String customWidth;
   final String profileName;
   final String navigatorName;
+  
 
   const CustomCard(
       {Key? key,
       required this.title,
-      required this.imgRoute,
+      required this.mealType,
       required this.customWidth,
       required this.profileImg,
       required this.profileName,
       required this.navigatorName})
       : super(key: key);
+  
+  @override
+  String findIndex(String target, List<String> list) {
+  int index = list.indexOf(target);
+  String returnable= 'assets/images/'+index.toString()+'.png';
+  return returnable;
+}
 
   @override
   Widget build(BuildContext context) {
@@ -72,9 +92,9 @@ class CustomCard extends StatelessWidget {
                         children: [
                           Stack(
                             children: [
-                              if (imgRoute != '')
+                              if (mealType != '')
                                 Image(
-                                  image: AssetImage(imgRoute),
+                                  image: AssetImage(findIndex(mealType, mealTypes)),
                                   height: 120,
                                 ),
                               Positioned(

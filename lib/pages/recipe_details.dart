@@ -3,7 +3,17 @@ import 'package:cookbook_mobile/pages/home.dart';
 import 'package:cookbook_mobile/services/alert_services.dart';
 import 'package:flutter/material.dart';
 import '../services/endpoint_services.dart';
-
+  List<String> mealTypes = [
+    'Pasta',
+    'Salad',
+    'Dessert',
+    'Soup',
+    'Kebab - Skewer',
+    'Pizza',
+    'Seafood',
+    'Vegetable Dishes',
+    'Fast Food',
+  ];
 class RecipeDetailsPage extends StatefulWidget {
   final String recipeID;
 
@@ -21,6 +31,12 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
     super.initState();
     getOneRecipe();
   }
+  @override
+  String findIndex(String target, List<String> list) {
+  int index = list.indexOf(target);
+  String returnable= 'assets/images/'+index.toString()+'.png';
+  return returnable;
+}
 
   void getOneRecipe() async {
     try {
@@ -60,7 +76,7 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
                       height: 25,
                     ),
                     Image(
-                      image: AssetImage("assets/images/food_2.png"),
+                      image: AssetImage(findIndex(recipe!['mealType'], mealTypes)),
                     ),
                     SizedBox(
                       height: 25,

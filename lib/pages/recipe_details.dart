@@ -8,34 +8,29 @@ class RecipeDetailsPage extends StatefulWidget {
   RecipeDetailsPage({required this.recipeID});
 
   @override
-  RecipeDetailsPageState createState() => RecipeDetailsPageState();
+  _RecipeDetailsPageState createState() => _RecipeDetailsPageState();
 }
 
-class RecipeDetailsPageState extends State<RecipeDetailsPage> {
-  Map<String, dynamic> recipe = {};
+class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
+  List<dynamic>? recipes; // Use nullable list
 
   @override
   void initState() {
     super.initState();
-    _fetchRecipeDetails();
+    getOneRecipe();
   }
 
-  void _fetchRecipeDetails() {
-    _getOneRecipe().then((response) {
-      if (response.statusCode >= 399) {
-        print('ERROR: ${response.body}');
-        return;
-      }
-      print(response.body);
-
+  void getOneRecipe() async {
+    try {
+      final response = await EndpointServices().getRecipeList();
       setState(() {
-        recipe = jsonDecode(response.body.toString());
+        recipes = jsonDecode(response.body);
       });
-    });
-  }
-
-  Future<dynamic> _getOneRecipe() {
-    return EndpointServices().getOneRecipe(widget.recipeID);
+      print(recipes.toString());
+    } catch (e) {
+      print("Error fetching recipes: $e");
+      // Handle the error, e.g., show an error message
+    }
   }
 
   @override
@@ -45,30 +40,32 @@ class RecipeDetailsPageState extends State<RecipeDetailsPage> {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Center(
-          child: Column(
-            children: [
-              SizedBox(
-                height: 25,
-              ),
-              Text(
-                recipe['title'],
-                style: TextStyle(fontSize: 28),
-              ),
-              SizedBox(
-                height: 25,
-              ),
-              Image(
-                image: AssetImage("assets/images/food_2.png"),
-              ),
-              SizedBox(
-                height: 25,
-              ),
-              Text(
-                recipe['description'],
-                style: TextStyle(fontSize: 20),
-              ),
-            ],
-          ),
+          child: recipes == null
+              ? CircularProgressIndicator()  
+              : Column(
+                  children: [
+                    SizedBox(
+                      height: 25,
+                    ),
+                    Text(
+                      recipes![0]['title'] ?? 'Loading...',
+                      style: TextStyle(fontSize: 28),
+                    ),
+                    SizedBox(
+                      height: 25,
+                    ),
+                    Image(
+                      image: AssetImage("assets/images/food_2.png"),
+                    ),
+                    SizedBox(
+                      height: 25,
+                    ),
+                    Text(
+                      recipes![0]['description'] ?? 'Loading...',  
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ],
+                ),
         ),
       ),
     );

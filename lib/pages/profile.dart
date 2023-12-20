@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
+import 'package:cookbook_mobile/pages/myHome.dart';
 import 'package:flutter/material.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -127,7 +128,10 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       IconButton(
                         onPressed: () {
-                       
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => MyHomePage()));
                         },
                         icon: Icon(
                           Icons.arrow_forward_ios,

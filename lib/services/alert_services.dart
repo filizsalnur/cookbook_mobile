@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quickalert/quickalert.dart';
 
-
-
 class AlertUtils {
   bool isDialogOpen = false;
   Future<void> successfulAlert(
@@ -16,7 +14,6 @@ class AlertUtils {
       backgroundColor: Colors.white,
       autoCloseDuration: Duration(milliseconds: 1500),
       titleColor: Colors.green,
-      
     );
     isDialogOpen = false;
   }
@@ -42,11 +39,12 @@ class AlertUtils {
       type: QuickAlertType.info,
       showConfirmBtn: false,
       title: infoMessage,
-      backgroundColor:  Colors.white,
+      backgroundColor: Colors.white,
       autoCloseDuration: Duration(milliseconds: 1500),
       titleColor: Colors.yellow,
     );
     isDialogOpen = false;
+    Navigator.pop(context);
   }
 
   Future<void> loadingAlert(BuildContext context) async {
@@ -63,9 +61,5 @@ class AlertUtils {
     isDialogOpen = false;
   }
 
-  
-
 ////////////////////////////////////////////////////////////////////////////////////////////////
-
-  
 }

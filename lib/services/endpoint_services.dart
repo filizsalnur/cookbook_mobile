@@ -12,10 +12,10 @@ class ApiResponse {
 
   ApiResponse(this.statusCode, this.body);
 }
+
 class Credentials {
   String email;
   String userId;
-
 
   Credentials(this.email, this.userId);
 }
@@ -30,9 +30,6 @@ class EndpointServices {
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   Future<ApiResponse> getUserList() async {
-
-
-
     final url = baseUrl + 'api/User';
 
     print('======================Get User List=====================');
@@ -54,40 +51,33 @@ class EndpointServices {
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   Future<ApiResponse> createUser(String email, String password) async {
-
-
     final url = baseUrl + 'api/User';
 
     print('======================Create User=====================');
     try {
       final Map<String, dynamic> requestData = {
-        '"UserName"': '"$email"',
-        '"Email"': '"$email"',
-        '"Password"': '"$password"',
-        '"Recipes"': []
+        'UserName': email,
+        'Email': email,
+        'Password': password,
+        'Recipes': []
       };
       print(requestData);
-      final response =
-          await http.post(Uri.parse(url),  headers: <String, String>{
-        'Content-Type': 'application/json',
-      }, body: jsonEncode(requestData));
+      final response = await http.post(Uri.parse(url),
+          headers: <String, String>{
+            'Content-Type': 'application/json',
+          },
+          body: jsonEncode(requestData));
 
-      if (response.statusCode >= 399) {
-        print('ERROR: ${response.body}');
-        return ApiResponse(response.statusCode, response.body);
-      } else {
-        print('OK');
-        return ApiResponse(response.statusCode, response.body);
-      }
+      print(response.body);
+      return ApiResponse(response.statusCode, response.body);
     } catch (e) {
       print("Error in db_services: $e");
       return ApiResponse(500, "Error: $e");
     }
   }
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    Future<ApiResponse> getRecipeList() async {
-
-
+  Future<ApiResponse> getRecipeList() async {
     final url = baseUrl + 'api/Recipe';
 
     print('======================Get Recipe List=====================');
@@ -106,10 +96,9 @@ class EndpointServices {
       return ApiResponse(500, "Error: $e");
     }
   }
+
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    Future<ApiResponse> getOneRecipe(String recipeID) async {
-
-
+  Future<ApiResponse> getOneRecipe(String recipeID) async {
     final url = baseUrl + 'api/Recipe/$recipeID';
 
     print('======================Get Recipe =====================');
@@ -128,6 +117,7 @@ class EndpointServices {
       return ApiResponse(500, "Error: $e");
     }
   }
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   Future<int> createRecipe(String title, String description,String mealType) async {
     String userName = await getMail();
@@ -145,10 +135,11 @@ class EndpointServices {
         'MealType': mealType
       };
       print(jsonEncode(requestData));
-      final response =
-          await http.post(Uri.parse(url),  headers: <String, String>{
-        'Content-Type': 'application/json',
-      }, body: jsonEncode(requestData));
+      final response = await http.post(Uri.parse(url),
+          headers: <String, String>{
+            'Content-Type': 'application/json',
+          },
+          body: jsonEncode(requestData));
 
       if (response.statusCode >= 399) {
         print('ERROR: ${response.body}');
@@ -158,20 +149,40 @@ class EndpointServices {
         return response.statusCode;
       }
     } catch (e) {
-      print("Error in db_services: $e");
+      print("Error : $e");
       return 500;
     }
   }
 
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-     Future<void> saveCredentials(
-      String mail, String userId) async {
-    final prefs = await SharedPreferences.getInstance();
-      prefs.setString('email', mail);
-      prefs.setString('userId', userId);
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Future<bool> deleteRecipe(String recipeID) async {
+    final url = baseUrl + 'api/Recipe/$recipeID';
 
+    print('======================Get Recipe =====================');
+    try {
+      final response = await http.delete(Uri.parse(url));
+
+      if (response.statusCode >= 399) {
+        print('ERROR: ${response.body}');
+        return false;
+      } else {
+        print('OK');
+        return true;
+      }
+    } catch (e) {
+      print("Error in db_services: $e");
+      return false;
+    }
   }
-    Future<Credentials> loadSavedCredentials() async {
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Future<void> saveCredentials(String mail, String userId) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('email', mail);
+    prefs.setString('userId', userId);
+  }
+
+  Future<Credentials> loadSavedCredentials() async {
     final prefs = await SharedPreferences.getInstance();
 
     String mailController = prefs.getString('email') ?? '';
@@ -179,15 +190,16 @@ class EndpointServices {
 
     return Credentials(mailController, userIdController);
   }
-    Future<String> getUserId() async {
+
+  Future<String> getUserId() async {
     final prefs = await SharedPreferences.getInstance();
     String user = prefs.getString('userId') ?? 'userId';
     return user;
   }
-      Future<String> getMail() async {
+
+  Future<String> getMail() async {
     final prefs = await SharedPreferences.getInstance();
     String mail = prefs.getString('email') ?? 'email';
     return mail;
   }
-
 }

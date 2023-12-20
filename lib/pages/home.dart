@@ -18,9 +18,14 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _getRecipeList() async {
     final response = await EndpointServices().getRecipeList();
+
     setState(() {
       recipeList = jsonDecode(response.body);
     });
+    if (recipeList.isEmpty) {
+      await AlertUtils().InfoAlert('No Recipe Found', context);
+    }
+
     print(recipeList.toString());
   }
 
@@ -38,8 +43,19 @@ class _HomePageState extends State<HomePage> {
       },
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(40.0),
-          child: AppBar(backgroundColor: Colors.grey.shade100),
+          preferredSize: const Size.fromHeight(60.0),
+          child: AppBar(
+            backgroundColor: Colors.grey.shade300,
+            title: Center(
+              child: Text(
+                'Recipes',
+                style: TextStyle(
+                  color: Colors.teal,
+                  fontSize: 30,
+                ),
+              ),
+            ),
+          ),
         ),
         body: FutureBuilder(
             future: _recipeListFuture,
@@ -48,36 +64,33 @@ class _HomePageState extends State<HomePage> {
                 return Center(
                   child: CircularProgressIndicator(),
                 );
-              }
-              if (recipeList.isEmpty) {
-                AlertUtils().InfoAlert("No Recipes", context);
-              }
-
-              return SingleChildScrollView(
-                child: SafeArea(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: recipeList.map((recipe) {
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: CustomCard(
-                              title: recipe['title'],
-                              imgRoute: "assets/images/food_1.png",
-                              customWidth: 'full',
-                              navigatorName: recipe['id'],
-                              profileName: recipe['userName'],
-                              profileImg: 'assets/images/profile_1.png',
+              } else {
+                return SingleChildScrollView(
+                  child: SafeArea(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: recipeList.map((recipe) {
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: CustomCard(
+                                title: recipe['title'],
+                                imgRoute: "assets/images/food_1.png",
+                                customWidth: 'full',
+                                navigatorName: recipe['id'],
+                                profileName: recipe['userName'],
+                                profileImg: 'assets/images/profile_1.png',
+                              ),
                             ),
-                          ),
-                        ],
-                      );
-                    }).toList(),
+                          ],
+                        );
+                      }).toList(),
+                    ),
                   ),
-                ),
-              );
+                );
+              }
             }),
         bottomNavigationBar: BottomAppBarWidget(),
       ),

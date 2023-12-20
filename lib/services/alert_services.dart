@@ -44,7 +44,6 @@ class AlertUtils {
       titleColor: Colors.yellow,
     );
     isDialogOpen = false;
-    Navigator.pop(context);
   }
 
   Future<void> loadingAlert(BuildContext context) async {

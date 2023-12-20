@@ -119,7 +119,8 @@ class EndpointServices {
   }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  Future<int> createRecipe(String title, String description,String mealType) async {
+  Future<int> createRecipe(
+      String title, String description, String mealType) async {
     String userName = await getMail();
     String userId = await getUserId();
 
@@ -170,7 +171,7 @@ class EndpointServices {
         return true;
       }
     } catch (e) {
-      print("Error in db_services: $e");
+      print("Error : $e");
       return false;
     }
   }

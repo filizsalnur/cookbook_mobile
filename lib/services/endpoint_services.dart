@@ -56,10 +56,10 @@ class EndpointServices {
     print('======================Create User=====================');
     try {
       final Map<String, dynamic> requestData = {
-        '"UserName"': '"$email"',
-        '"Email"': '"$email"',
-        '"Password"': '"$password"',
-        '"Recipes"': []
+        'UserName': email,
+        'Email': email,
+        'Password': password,
+        'Recipes': []
       };
       print(requestData);
       final response = await http.post(Uri.parse(url),
@@ -68,13 +68,8 @@ class EndpointServices {
           },
           body: jsonEncode(requestData));
 
-      if (response.statusCode >= 399) {
-        print('ERROR: ${response.body}');
-        return ApiResponse(response.statusCode, response.body);
-      } else {
-        print('OK');
-        return ApiResponse(response.statusCode, response.body);
-      }
+      print(response.body);
+      return ApiResponse(response.statusCode, response.body);
     } catch (e) {
       print("Error in db_services: $e");
       return ApiResponse(500, "Error: $e");
@@ -155,6 +150,27 @@ class EndpointServices {
     } catch (e) {
       print("Error : $e");
       return 500;
+    }
+  }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Future<bool> deleteRecipe(String recipeID) async {
+    final url = baseUrl + 'api/Recipe/$recipeID';
+
+    print('======================Get Recipe =====================');
+    try {
+      final response = await http.delete(Uri.parse(url));
+
+      if (response.statusCode >= 399) {
+        print('ERROR: ${response.body}');
+        return false;
+      } else {
+        print('OK');
+        return true;
+      }
+    } catch (e) {
+      print("Error in db_services: $e");
+      return false;
     }
   }
 

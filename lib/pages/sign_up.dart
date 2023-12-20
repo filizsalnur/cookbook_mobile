@@ -4,6 +4,7 @@ import 'package:cookbook_mobile/pages/login.dart';
 import 'package:cookbook_mobile/services/endpoint_services.dart';
 import 'package:flutter/material.dart';
 import 'home.dart';
+import '../services/alert_services.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -24,21 +25,22 @@ class __SignUpPageState extends State<SignUpPage> {
   String errorEmailMessage = '';
   String errorPasswordMessage = '';
 
-void checkForNumber(String newPassword) {
-  bool containsNumber = newPassword.contains(RegExp(r'\d'));
+  void checkForNumber(String newPassword) {
+    bool containsNumber = newPassword.contains(RegExp(r'\d'));
 
-  setState(() {
-    this.containsNumber = containsNumber;
-  });
-}
-void checkForLength(String newPassword) {
-  bool passwordLength = newPassword.length >= 6;
-  setState(() {
-    this.passwdLength = passwordLength;
-  });
-  
-}
-   @override
+    setState(() {
+      this.containsNumber = containsNumber;
+    });
+  }
+
+  void checkForLength(String newPassword) {
+    bool passwordLength = newPassword.length >= 6;
+    setState(() {
+      this.passwdLength = passwordLength;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
@@ -59,7 +61,7 @@ void checkForLength(String newPassword) {
                       height: 45.0,
                     ),
                     Text(
-                      'Welcome!',
+                      'Sign Up!',
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
@@ -111,40 +113,39 @@ void checkForLength(String newPassword) {
                       height: 18.0,
                     ),
                     TextField(
-  obscureText: !isPasswordVisible,
-  controller: passwordController,
-  onChanged: (String newValue) {
-    checkForNumber(newValue);
-    checkForLength(newValue);
-  },
-  decoration: InputDecoration(
-    border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(30.0),
-    ),
-    hintText: 'Password',
-    prefixIconColor: Colors.grey.shade700,
-    prefixIcon: Icon(Icons.lock),
-    suffixIcon: IconButton(
-      icon: Icon(
-        isPasswordVisible
-          ? Icons.visibility_off
-          : Icons.remove_red_eye_outlined,
-      ),
-      onPressed: () {
-        setState(() {
-          isPasswordVisible = !isPasswordVisible;
-        });
-      },
-    ),
-    hintStyle: TextStyle(
-      color: Colors.grey.shade700,
-    ),
-  ),
-  style: TextStyle(
-    color: Colors.grey.shade700,
-  ),
-),
-
+                      obscureText: !isPasswordVisible,
+                      controller: passwordController,
+                      onChanged: (String newValue) {
+                        checkForNumber(newValue);
+                        checkForLength(newValue);
+                      },
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                        hintText: 'Password',
+                        prefixIconColor: Colors.grey.shade700,
+                        prefixIcon: Icon(Icons.lock),
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            isPasswordVisible
+                                ? Icons.visibility_off
+                                : Icons.remove_red_eye_outlined,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              isPasswordVisible = !isPasswordVisible;
+                            });
+                          },
+                        ),
+                        hintStyle: TextStyle(
+                          color: Colors.grey.shade700,
+                        ),
+                      ),
+                      style: TextStyle(
+                        color: Colors.grey.shade700,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -158,54 +159,69 @@ void checkForLength(String newPassword) {
                 ),
               ),
             Padding(
-              padding: const EdgeInsets.only(left:22, right: 20, top: 10),
+              padding: const EdgeInsets.only(left: 22, right: 20, top: 10),
               child: Align(
                 alignment: Alignment.centerLeft,
-                child: Text('Your Password must contain:',
-                style: TextStyle(
-                  color: Colors.grey.shade700,
-                  fontSize: 18,
-                ),),
+                child: Text(
+                  'Your Password must contain:',
+                  style: TextStyle(
+                    color: Colors.grey.shade700,
+                    fontSize: 18,
+                  ),
+                ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left:22, right: 20, top: 10),
+              padding: const EdgeInsets.only(left: 22, right: 20, top: 10),
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Row(
                   children: [
-                    Icon(Icons.check_circle, color: (passwdLength)?Colors.green:Colors.grey.shade700,),
-                    SizedBox(width: 10,),
-                    Text('Atleast 6 characters',
-                    
-                    style: TextStyle(
-                      color: Colors.grey.shade700,
-                      fontSize: 18,
-                    ),),
+                    Icon(
+                      Icons.check_circle,
+                      color:
+                          (passwdLength) ? Colors.green : Colors.grey.shade700,
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      'Atleast 6 characters',
+                      style: TextStyle(
+                        color: Colors.grey.shade700,
+                        fontSize: 18,
+                      ),
+                    ),
                   ],
                 ),
               ),
             ),
-              Padding(
-              padding: const EdgeInsets.only(left:22, right: 20, top: 7),
+            Padding(
+              padding: const EdgeInsets.only(left: 22, right: 20, top: 7),
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Row(
                   children: [
-                    Icon(Icons.check_circle, color: (containsNumber)?Colors.green:Colors.grey.shade700,),
-                    SizedBox(width: 10,),
-                    Text('Contains a number',
-                    
-                    style: TextStyle(
-                      color: Colors.grey.shade700,
-                      fontSize: 18,
-                    ),),
+                    Icon(
+                      Icons.check_circle,
+                      color: (containsNumber)
+                          ? Colors.green
+                          : Colors.grey.shade700,
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      'Contains a number',
+                      style: TextStyle(
+                        color: Colors.grey.shade700,
+                        fontSize: 18,
+                      ),
+                    ),
                   ],
                 ),
               ),
             ),
-        
-            
             SizedBox(
               height: 30.0,
             ),
@@ -221,7 +237,8 @@ void checkForLength(String newPassword) {
                       MaterialStateProperty.all<Color>(Colors.green),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 120, right: 120, top: 20, bottom: 20),
+                  padding: const EdgeInsets.only(
+                      left: 120, right: 120, top: 20, bottom: 20),
                   child: const Text(
                     'Sign Up',
                     style: TextStyle(
@@ -234,20 +251,25 @@ void checkForLength(String newPassword) {
                 onPressed: () async {
                   String mail = emailController.text;
                   String password = passwordController.text;
-                 
+
                   checkForNumber(password);
-                 if(password.length > 6 && containsNumber){
-                  ApiResponse responce=await EndpointServices().createUser(mail, password);
-                  print(responce.statusCode);
-                  if(responce.statusCode< 400){
-                    Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => HomePage()),
-                  );
-                 }
-               
-            
-                }},
+                  if (password.length > 6 && containsNumber) {
+                    ApiResponse responce =
+                        await EndpointServices().createUser(mail, password);
+                    print(responce.statusCode);
+
+                    if (responce.statusCode < 400) {
+                      await AlertUtils()
+                          .successfulAlert("Account Created", context);
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => HomePage()),
+                      );
+                    } else {
+                      AlertUtils().errorAlert("Unable to create", context);
+                    }
+                  }
+                },
               ),
             ),
           ])),

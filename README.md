@@ -5,19 +5,19 @@ Welcome to the Cookbook Mobile App, a Flutter-based application designed for the
 ## Screenshots
 
 ### Welcome Page
-![Welcome Page](https://via.placeholder.com/300/906332b8-1ec3-4d26-804f-9d0fd06f569a-small.jpg)
+<img src="https://github.com/filizsalnur/cookbook_mobile/assets/92436947/906332b8-1ec3-4d26-804f-9d0fd06f569a-small.jpg" width="300">
 
 ### Sign in Page
-![Sign in Page](https://via.placeholder.com/300/1c0dd57f-7229-41b5-b673-540f9227faa4-small.jpg)
+<img src="https://github.com/filizsalnur/cookbook_mobile/assets/92436947/1c0dd57f-7229-41b5-b673-540f9227faa4-small.jpg" width="300">
 
 ### Add New Recipe
-![Add new recipe](https://via.placeholder.com/300/93fdb6bd-2e31-4e99-ad2c-11a9d467b113-small.jpg)
+<img src="https://github.com/filizsalnur/cookbook_mobile/assets/92436947/93fdb6bd-2e31-4e99-ad2c-11a9d467b113-small.jpg" width="300">
 
 ### Recipe Details Page
-![Recipe Details Page](https://via.placeholder.com/300/d4a987f6-3c05-4c43-b88a-c5873a10539d-small.jpg)
+<img src="https://github.com/filizsalnur/cookbook_mobile/assets/92436947/d4a987f6-3c05-4c43-b88a-c5873a10539d-small.jpg" width="300">
 
 ### Sign up Page
-![Sign up Page](https://via.placeholder.com/300/375fe58e-e50a-4810-a40d-8f53338dc3cd-small.jpg)
+<img src="https://github.com/filizsalnur/cookbook_mobile/assets/92436947/375fe58e-e50a-4810-a40d-8f53338dc3cd-small.jpg" width="300">
 
 ## Getting Started
 

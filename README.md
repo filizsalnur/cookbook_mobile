@@ -13,8 +13,8 @@ Welcome to the Cookbook Mobile App, a Flutter-based application designed for the
 ### Add New Recipe
 ![Add new recipe](https://github.com/filizsalnur/cookbook_mobile/assets/92436947/93fdb6bd-2e31-4e99-ad2c-11a9d467b113-small.jpg)
 
-### Simulator Screenshot - iPhone 15 Pro Max - 2024-01-04 at 14:29:04
-![Simulator Screenshot](https://github.com/filizsalnur/cookbook_mobile/assets/92436947/d4a987f6-3c05-4c43-b88a-c5873a10539d-small.jpg)
+### Recipe Details Page
+![Recipe Details Page](https://github.com/filizsalnur/cookbook_mobile/assets/92436947/d4a987f6-3c05-4c43-b88a-c5873a10539d-small.jpg)
 
 ### Sign up Page
 ![Sign up Page](https://github.com/filizsalnur/cookbook_mobile/assets/92436947/375fe58e-e50a-4810-a40d-8f53338dc3cd-small.jpg)
